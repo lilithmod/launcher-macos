@@ -54,10 +54,10 @@ func downloadLatest() async throws {
     if !fm.fileExists(atPath: lilithPath) {
         try utils_runCommand(command: "mkdir \(lilithPath)")
     }
-    try await VersionManifest(fromURL: versionURL).save(toFile: versionFile)
     let (data, _) = try await URLSession.shared.data(from: URL(string: "https://api.lilithmod.xyz/download/macos")!)
     let url = URL(fileURLWithPath: lilithExecPath)
     try data.write(to: url)
+    try await VersionManifest(fromURL: versionURL).save(toFile: versionFile)
 }
 
 func stinky(_ message: String) -> Never {
